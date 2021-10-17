@@ -1,17 +1,22 @@
-<div id="map" class="map-container">
+<div #map class="map-container">
     
 </div>
 
 <div class="row">
     <div class="col-12">
         <label class="form-label">
-            Zoom:15
+            Zoom: {{zoomLevel | number:"2.0-2"}}
             -Lgt, Lat: [123, 456]
         </label>
         <input type="range" class="form-range">
     </div>
     <div class="col-12">
-        <button class="btn btn-primary"> - </button>
-        <button class="btn btn-primary float-end"> + </button>
+        <button 
+            class="btn btn-primary"
+            (click)="zoomOut()"> - </button>
+        <button 
+            class="btn btn-primary float-end"
+            (click)="zoomIn()"
+            > + </button>
     </div>
 </div>
