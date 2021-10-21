@@ -98,15 +98,20 @@ zoomChanges(value:string){
 }
 
 addMarker(){
+
+  //It generates a random color
+  const color = "#xxxxxx".replace(/x/g, y=>(Math.random()*16|0).toString(16));
+
   const newMarker= new mapboxgl.Marker({
-    draggable: true
+    draggable: true,
+    color: color
   })
     .setLngLat(this.mapCenter)
     .addTo(this.map)
   }
 
   goMarker(){
-
+    //Need of implementation
   }
 
 }
