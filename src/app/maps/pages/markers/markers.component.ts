@@ -11,7 +11,8 @@ import * as mapboxgl from 'mapbox-gl';
       height: 100%
     }
 
-    #zoom-level {
+    /* No puedo manejar el zoom-level así, así que a ver cómo puedo hacerlo */
+    .row {
       background-color: white;
       position: fixed;
       bottom: 50px;
@@ -22,13 +23,24 @@ import * as mapboxgl from 'mapbox-gl';
       width: 400px;
     }
 
-    #add-marker{
-      position: fixed; 
-      bottom: 50px;
-      left: 40px;
-      width: 400px;
-      height: 200px;
+    button{
+      cursor: pointer;
     }
+
+    #add-marker{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 99;
+      width: 420px;
+      height: 200px;
+      z-index: 999;
+    }
+
+    #add-marker .list-group{
+      cursor: pointer;
+    }
+
   `
   ]
 })
@@ -71,10 +83,6 @@ export class MarkersComponent implements AfterViewInit{
     this.mapCenter=[lng, lat];
   });
 
-  const marker=new mapboxgl.Marker()
-    .setLngLat(this.mapCenter)
-    .addTo(this.map);
-
  }
 
  zoomIn(){
@@ -85,7 +93,20 @@ export class MarkersComponent implements AfterViewInit{
   this.map.zoomOut();
 }
 
-  zoomChanges(value:string){
+zoomChanges(value:string){
     this.map.zoomTo(Number(value));
+}
+
+addMarker(){
+  const newMarker= new mapboxgl.Marker({
+    draggable: true
+  })
+    .setLngLat(this.mapCenter)
+    .addTo(this.map)
   }
+
+  goMarker(){
+
+  }
+
 }

@@ -2,7 +2,7 @@
     
 </div>
 
-<div class="row" id="zoom-level">
+<div class="row">
     <div class="col-12">
         <label class="form-label">
             Zoom: {{zoomLevel | number:"2.0-2"}}
@@ -27,11 +27,22 @@
     </div>
 </div>
 
-<div class="row" id="add-marker">
+
+
+<div id="add-marker">
     <div class="col-12">
         <ul class="list-group">
-            <li class="list-group-item list-group-item-info">
-                Add marker
+            <li class="list-group-item list-group-item-info" (click)="addMarker()">
+                + Add 
+            </li>
+            <li class="list-group-item" (click)="goMarker()">
+                Marker 1
+            </li>
+            <li class="list-group-item">
+                Marker 2
+            </li>
+            <li class="list-group-item">
+                Marker 3
             </li>
         </ul>
     </div>
