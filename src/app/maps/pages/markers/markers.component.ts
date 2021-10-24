@@ -1,9 +1,11 @@
+import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
 
 interface markerColor{
   color: string;
-  marker: mapboxgl.Marker;
+  marker?: mapboxgl.Marker;
+  center?: [number, number];
 }
 
 @Component({
@@ -90,6 +92,8 @@ export class MarkersComponent implements AfterViewInit{
     this.mapCenter=[lng, lat];
   });
 
+  this.readlocalStorage();
+
  }
 
  zoomIn(){
@@ -120,22 +124,70 @@ addMarker(){
       color: color,
       marker: newMarker
     });
+
+    this.saveMarkersLocalStorage();
+
+    //TODO: Review this
+    newMarker.on('dragend', () => {
+      this.saveMarkersLocalStorage();
+    });
   }
 
-  goMarker(marker:mapboxgl.Marker){
+  goMarker(marker?:mapboxgl.Marker){
     this.map.flyTo({
-      center: marker.getLngLat()
+      center: marker?.getLngLat()
     })
   }
 
   saveMarkersLocalStorage(){
+
+    const lngLatArr:any=[]; 
+
     this.markers.forEach(m=>{
       const color=m.color;
-      const lngLat=m.marker.getLngLat();
+      const {lng, lat}=m.marker!.getLngLat();
+
+      lngLatArr.push({
+        color: color,
+        center: [lng, lat]
+      })
     })
+
+    localStorage.setItem("markers", JSON.stringify(lngLatArr));
   }
 
   readlocalStorage(){
+    if(!localStorage.getItem("markers")){
+      return ;
+    }
 
+    const lgnLatArray:markerColor[]=JSON.parse(localStorage.getItem("markers")!);
+
+    lgnLatArray.forEach(m=>{
+      const newMarker=new mapboxgl.Marker({
+        color: m.color,
+        draggable:true
+      })
+
+      .setLngLat(m.center!)
+      .addTo(this.map);
+
+      this.markers.push({
+        marker: newMarker,
+        color: m.color
+      })
+
+      newMarker.on('dragend', () => {
+        this.saveMarkersLocalStorage();
+      });
+
+    })
+  }
+
+  //TODO: It doesnt work, to explore to see what happens
+  deleteMarker(i:number){
+    this.markers[i].marker?.remove();
+    this.markers.splice(i, 1);
+    this.saveMarkersLocalStorage();
   }
 }
