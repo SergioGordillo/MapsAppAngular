@@ -122,8 +122,20 @@ addMarker(){
     });
   }
 
-  goMarker(){
-    //Need of implementation
+  goMarker(marker:mapboxgl.Marker){
+    this.map.flyTo({
+      center: marker.getLngLat()
+    })
   }
 
+  saveMarkersLocalStorage(){
+    this.markers.forEach(m=>{
+      const color=m.color;
+      const lngLat=m.marker.getLngLat();
+    })
+  }
+
+  readlocalStorage(){
+
+  }
 }

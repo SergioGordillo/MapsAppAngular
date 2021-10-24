@@ -36,9 +36,9 @@
                 + Add 
             </li>
             <li class="list-group-item" 
-            (click)="goMarker()" 
             *ngFor="let marker of markers; let i = index"
             [ngStyle]="{'background-color': marker.color}"
+            (click)="goMarker(marker.marker)" 
             >
                 Marker {{i+1}}
             </li>
