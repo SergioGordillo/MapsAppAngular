@@ -39,8 +39,8 @@
             *ngFor="let marker of markers; let i = index"
             [ngStyle]="{'background-color': marker.color}"
             (click)="goMarker(marker?.marker)" 
-            (dblclick)="deleteMarker(i)"
             >
+            <span (click)="deleteMarker(i)"> X </span>
                 Marker {{i+1}}
             </li>
         </ul>

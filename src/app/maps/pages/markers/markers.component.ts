@@ -17,8 +17,7 @@ interface markerColor{
       width: 100%;
       height: 100%
     }
-
-    /* No puedo manejar el zoom-level así, así que a ver cómo puedo hacerlo */
+    
     .row {
       background-color: white;
       position: fixed;
@@ -127,7 +126,6 @@ addMarker(){
 
     this.saveMarkersLocalStorage();
 
-    //TODO: Review this
     newMarker.on('dragend', () => {
       this.saveMarkersLocalStorage();
     });
@@ -184,7 +182,6 @@ addMarker(){
     })
   }
 
-  //TODO: It doesnt work, to explore to see what happens
   deleteMarker(i:number){
     this.markers[i].marker?.remove();
     this.markers.splice(i, 1);
