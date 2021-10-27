@@ -1,7 +1,10 @@
 {
+  "homepage": "https/://SergioGordillo.github.io/MapsAppAngular",
   "name": "maps-app",
   "version": "0.0.0",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist/mapsApp",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -30,6 +33,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/mapbox-gl": "^2.4.2",
     "@types/node": "^12.11.1",
+    "gh-pages": "^3.2.3",
     "jasmine-core": "~3.7.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
